@@ -36,7 +36,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>2.2.224</version>
-			<scope>test</scope>
+			<scope>runtime</scope> <!--Por defecto viene en test que solo sirve para la parte de testing-->
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf</groupId>

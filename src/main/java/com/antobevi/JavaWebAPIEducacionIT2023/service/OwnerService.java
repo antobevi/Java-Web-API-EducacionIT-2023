@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
 En esta capa Service es donde ponemos toda la logica de negocio, como por ejemplo,
@@ -23,6 +24,10 @@ public class OwnerService {
 
     public Owner saveOwner(Owner owner) {
         return ownersRepository.save(owner);
+    }
+
+    public Owner getOwnerById(Long id) {
+        return ownersRepository.findById(id).orElseThrow(() -> new RuntimeException("Owner not found."));
     }
 
 }

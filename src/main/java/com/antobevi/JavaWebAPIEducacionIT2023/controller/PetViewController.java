@@ -6,10 +6,7 @@ import com.antobevi.JavaWebAPIEducacionIT2023.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,23 +26,44 @@ public class PetViewController {
         return "list-pets";
     }
 
-    @GetMapping("/form-new-pet")
+    @GetMapping("/new-pet")
     public String getFormNewPet(Model model) {
         model.addAttribute("owners", ownerService.listOwners());
         //model.addAttribute("pet", new Pet());
 
-        return "form-new-pet";
+        return "new-pet-form";
     }
 
     @PostMapping("/add")
-    public String addPet(Pet pet, @RequestParam Long ownerId) {
+    public String addPet(@ModelAttribute Pet pet, @RequestParam Long ownerId) {
         petService.savePet(pet, ownerId);
 
         return "redirect:/api/pets/list";
     }
 
-    // TODO: Update pet
+    // TODO: Buscar diferencias entre PathVariable y RequestParam
+    @GetMapping("/delete/{id}") // El DeleteMapping se usa al hacer un controlador REST
+    public String deletePet(@PathVariable Long petId) {
+        petService.deletePet(petId);
 
-    // TODO: Delete pet
+        return "redirect:/api/pets/list";
+    }
+
+    @GetMapping("/update/{id}") // Model es lo que le enviamos a la vista
+    public String getFormUpdatePet(@PathVariable Long petId, Model model) {
+        Pet pet = petService.getPetById(petId);
+        model.addAttribute("pet", pet);
+        model.addAttribute("owners", ownerService.listOwners()); // Por si se quiere actualizar el dueño
+
+        return "update-pet-form";
+    }
+
+    @PostMapping("/update/{id}") // ModelAttribute es el modelo que recibimos de la vista
+    public String updatePet(@PathVariable Long petId, @ModelAttribute Pet updatedPet, @RequestParam Long ownerId) {
+        updatedPet.setOwner(ownerService.getOwnerById(ownerId));
+        petService.updatePet(petId, updatedPet);
+
+        return "redirect:/api/pets/list";
+    }
 
 }
