@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/owners")
+@RequestMapping("s\"/api/owners")
 public class OwnerViewController { // Controlador para una vista ya que estamos haciendo una Web App
     @Autowired
     private OwnerService ownerService;
@@ -25,11 +25,11 @@ public class OwnerViewController { // Controlador para una vista ya que estamos 
         return "list-owners";
     }
 
-    @GetMapping("/form-new-owner") // Formulario para crear un nuevo dueño
+    @GetMapping("/new-owner") // Formulario para crear un nuevo dueño
     public String getFormNewOwner(Model model) {
         model.addAttribute("owner", new Owner());
 
-        return "form-new-owner";
+        return "new-owner";
     }
 
     @PostMapping("/add") // Guarda el dueño en la base de datos

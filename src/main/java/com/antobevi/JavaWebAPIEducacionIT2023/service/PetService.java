@@ -5,6 +5,8 @@ import com.antobevi.JavaWebAPIEducacionIT2023.model.Pet;
 import com.antobevi.JavaWebAPIEducacionIT2023.repository.OwnersRepository;
 import com.antobevi.JavaWebAPIEducacionIT2023.repository.PetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,10 @@ public class PetService {
     @Autowired
     private OwnersRepository ownersRepository; // Antes de buscar una mascota, necesitamos buscar el dueño
 
+    // TODO: Corregir
     public List<Pet> listPets() {
-        return petsRepository.findAll();
+        Sort sortBy = Sort.by(Sort.Direction.ASC, "name");
+        return petsRepository.findAll(sortBy);
     }
 
     public void savePet(Pet pet, Long ownerId) {
