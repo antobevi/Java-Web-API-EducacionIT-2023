@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>New Owner</title>
+</head>
+<body>
+
+  <h1>Registrar un nuevo Dueño</h1>
+
+  <form th:action="@{/api/owners/new-owner}" method="post" th:object="${owner}}">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required>
+
+    <hr>
+
+    <label for="surname">Apellido:</label>
+    <input type="text" id="surname" name="surname" th:field="*{surname}" required>
+
+    <hr>
+
+    <label for="address">Dirección:</label>
+    <input type="text" id="address" name="address" th:field="*{address}" required>
+
+    <hr>
+
+    <button type="submit">Guardar Dueño</button>
+  </form>
+
+  <br>
+
+  <a th:href="@{/api/owners/list}">Ver listado de Dueños</a>
+
+</body>
+</html>

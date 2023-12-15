@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pets</title>
+</head>
+<body>
+
+    <h1>Lista de Mascotas</h1>
+
+    <!-- Botones de acciones de las mascotas -->
+    <a th:href="@{/api/owners/add}">
+        <button>Agregar Dueño</button>
+    </a>
+    <a th:href="@{/api/pets/add}">
+        <button>Agregar Mascota</button>
+    </a>
+    <br><hr><br>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Especie</th>
+            <th>Dueño</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : {pets}">
+            <td th:text="${pet.id}}"></td>
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.age}"></td>
+            <td th:text="${pet.species}"></td>
+            <td th:text="${pet.owner.name}"></td>
+            <!-- Botones para Eliminar y Actualizar una mascota -->
+            <td>
+                <a th:href="@{/api/pets/delete/{id}(id=${pet.id})}">
+                    <button type="button">Eliminar</button>
+                </a>
+                <a th:href="@{/api/pets/update/{id}(id=${pet.id})}">
+                    <button type="button">Editar</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
