@@ -6,11 +6,11 @@ import lombok.*;
 
 @Entity
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Owner {
+@Getter
+@Setter
+public class WebAppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,7 +19,13 @@ public class Owner {
     private String name;
     @NotBlank(message = "Se debe ingresar un apellido.")
     private String surname;
-    @NotBlank(message = "Debe tener un direcci//u00F3n.")
-    private String address; // TODO: Deberia ser una clase
+    @NotBlank(message = "Se debe ingresar un nombre de usuario.")
+    private String username;
+    @NotBlank(message = "Se debe ingresar una contraseña.")
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
 
 }

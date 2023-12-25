@@ -19,19 +19,19 @@ public class PetService {
     @Autowired
     private OwnersRepository ownersRepository; // Antes de buscar una mascota, necesitamos buscar el dueño
 
-    // TODO: Corregir
     public List<Pet> listPets() {
-        Sort sortBy = Sort.by(Sort.Direction.ASC, "name");
-        return petsRepository.findAll(sortBy);
+        //Sort sortBy = Sort.by(Sort.Direction.DESC, "name").ignoreCase();
+        return petsRepository.findAllOrderByNameIgnoreCaseDesc();
     }
 
-    public void savePet(Pet pet, Long ownerId) {
+    public Pet savePet(Pet pet, Long ownerId) {
         // Buscamos el dueño y si no lo encuentra tira una excepcion
         Owner owner = ownersRepository.findById(ownerId).orElseThrow(() -> new RuntimeException("Owner not found."));
         pet.setOwner(owner);
-        petsRepository.save(pet);
+        return petsRepository.save(pet);
     }
 
+    // Operaciones CRUD
     public void deletePet(Long id) {
         // Optional declara un espacio de memoria que puede estar presente o no, si encontramos el dato lo almacena y si no, queda vacio.
         Optional<Pet> petOptional =  petsRepository.findById(id);
@@ -53,9 +53,9 @@ public class PetService {
             pet.setSpecies(updatedPet.getSpecies()); // Se puede omitir ya que la especie no es algo que cambie, salvo que se haya cargado por error
             pet.setOwner(updatedPet.getOwner());
 
-            petsRepository.save(pet); // Pisa lo que ya esta cargado, no lo duplica
+            petsRepository.save(pet); // El framework pisa lo que ya esta cargado, no lo duplica
         } else {
-            throw new RuntimeException("Pet not found."); // Arrojamos excepcion
+            throw new RuntimeException("Pet to update not found."); // Arrojamos excepcion
         }
     }
 

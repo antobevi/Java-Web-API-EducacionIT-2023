@@ -18,6 +18,12 @@ public class PetViewController {
     @Autowired
     private OwnerService ownerService;
 
+    @GetMapping("/")
+    public String redirectToPets() {
+
+        return "redirect:/api/pets/list";
+    }
+
     @GetMapping("/list")
     public String listPets(Model model) {
         List<Pet> pets = petService.listPets();
@@ -49,7 +55,7 @@ public class PetViewController {
         return "redirect:/api/pets/list";
     }
 
-    @GetMapping("/update/{id}") // Model es lo que le enviamos a la vista
+    @GetMapping("/update/{id}") // Model es lo que le enviamos a la vista (el front)
     public String getFormUpdatePet(@PathVariable Long petId, Model model) {
         Pet pet = petService.getPetById(petId);
         model.addAttribute("pet", pet);

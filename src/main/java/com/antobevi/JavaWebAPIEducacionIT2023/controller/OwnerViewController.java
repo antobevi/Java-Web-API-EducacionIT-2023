@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("s\"/api/owners")
+@RequestMapping("/api/owners")
 public class OwnerViewController { // Controlador para una vista ya que estamos haciendo una Web App
     @Autowired
     private OwnerService ownerService;
